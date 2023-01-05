@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>X3dom Headset</title>
+    <script
+      type="text/javascript"
+      src="http://www.x3dom.org/download/x3dom.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="http://www.x3dom.org/download/x3dom.css"
+    />
+    <style>
+      x3d {
+        border: 2px solid darkorange;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container" style="width: 100%; height: 500px">
+      <x3d id="x3dElement">
+        <scene>
+          <viewpoint position="0 0 50" orientation="1 0 0 0" />
+          <directionalLight
+            intensity="0.5"
+            direction="0 0 -1"
+          ></directionalLight>
+          <ambientLight intensity="0.4"></ambientLight>
+          <shape>
+            <appearance>
+              <material diffuseColor="#40e0d0" />
+            </appearance>
+            <indexedFaceSet solid="true" colorPerVertex="true">
+              <!-- 3D object data goes here -->
+            </indexedFaceSet>
+          </shape>
+        </scene>
+      </x3d>
+    </div>
+    <script type="text/javascript">
+      (function () {
+        // Initialize the scene
+        init();
+
+        // Start the animation loop
+        animate();
+
+        function init() {
+          // Create a new X3DOM scene
+          scene = document.getElementById("x3dElement");
+
+          // Set the background color of the scene
+          scene.setAttribute("clearColor", "#40e0d0");
+
+          // Create a new perspective camera
+          camera = new X3D.Viewpoint();
+
+          // Set the position of the camera
+          camera.setAttribute("position", "0 0 50");
+          camera.setAttribute("orientation", "1 0 0 0");
+
+          // Add the camera to the scene
+          scene.appendChild(camera);
+
+          // Load the OBJ file
+          const objLoader = new X3D.OBJLoader();
+          objLoader.load(
+            "kraken.obj",
+            function (object) {
+              //   add it to the scene
+              scene.appendChild(object);
+            },
+            undefined,
+            function (error) {
+              console.error(error);
+            }
+          );
+        }
+
+        function animate() {
+          // Request the next frame of the animation
+          requestAnimationFrame(animate);
+
+          // Render the scene
+          scene.render();
+        }
+      })();
+    </script>
+  </body>
+</html>
