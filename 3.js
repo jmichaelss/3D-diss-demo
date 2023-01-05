@@ -39,16 +39,13 @@ function init() {
   // Add the renderer to the HTML document
   document.getElementById("container").appendChild(renderer.domElement);
 
-  // Create a new MTLLoader
-  const mtlLoader = new MTLLoader();
-
   const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
 
   scene.add(directionalLight);
 
   const light = new THREE.AmbientLight(0x404040); // soft white light
   scene.add(light);
-  // Load the MTL file
+
   const objLoader = new OBJLoader();
 
   // Load the OBJ file
